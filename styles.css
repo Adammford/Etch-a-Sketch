@@ -5,3 +5,41 @@ html {
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    width: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid green;
+}
+
+header {
+    border: 2px solid blue;
+
+}
+
+.gridContainer {
+    flex: 1;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 45%;
+
+    display: flex;
+}
+
+.gridBox {
+    /* width: 30px;
+    height: 30px; */
+    flex: auto;
+    border: .5px solid black;
+}
+
+.gridRow {
+    /* width: 30px;
+    height: 30px; */
+    display: flex;
+    flex: auto;
+    border: .5px solid black;
+}
