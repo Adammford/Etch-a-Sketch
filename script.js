@@ -1,33 +1,62 @@
 
 const container = document.querySelector(".gridContainer");
-const box = document.createElement("div");
-
-box.classList.add("gridBox");
-
-let rowsColumns = 16;
-
-let numOfBoxes = 16;
-
-// for (let i = 0; i < numOfBoxes; i++) {
-//     const boxRow = document.createElement("div");
-//     boxRow.classList.add("gridBox");
-//     for (let j = 0; j < numOfBoxes; j++) {
-//         const boxCol = document.createElement("div");
-//         boxCol.classList.add("gridBox");
-//         boxRow.appendChild(boxCol)
-//     }
+const button = document.querySelector(".gridGenerator");
+const reset = document.querySelector(".reset");
 
 
-
-    for (let i = 0; i < numOfBoxes; i++) {
-        const boxRow = document.createElement("div");
-        boxRow.classList.add("gridRow");
-        container.appendChild(boxRow);
-        for (let j = 0; j < numOfBoxes; j++) {
-            const boxCol = document.createElement("div");
-            boxCol.setAttribute("class", "gridBox")
-            boxRow.appendChild(boxCol)
+function setGridSize () {
+   let choice = Number(prompt("Choose a grid size: (Max 100)"));
+   let isValid = 0;
+    while (isValid < 1) {
+        if (choice > 100 ||  choice <= 0) {
+            choice = Number(prompt("Invalid input: Choose a grid size: (min: 1, max: 100) "))
+        } else {
+            isValid++;
+            return choice;
         }
     }
+}
 
-box.classList.add("gridBox");
+function clearGrid() {
+    let toDelete = container.lastElementChild;
+    while(toDelete) {
+        container.removeChild(toDelete);
+        toDelete = container.lastElementChild;
+    }
+} 
+
+function createGrid(boxes = 16) {
+    for (let i = 0; i < boxes; i++) {
+        const boxRow = document.createElement("div");
+        boxRow.setAttribute("class", "gridRow");
+        container.appendChild(boxRow);
+        for (let j = 0; j < boxes; j++) {
+            const boxCol = document.createElement("div")
+            boxCol.setAttribute("class", "gridBox");
+            boxRow.appendChild(boxCol);
+            boxCol.addEventListener("mouseover", () => {
+                let red = Math.floor(Math.random() * 255);
+                let green = Math.floor(Math.random() * 255);
+                let blue = Math.floor(Math.random() * 255);
+                boxCol.style.backgroundColor = `rgb(${red}, ${green}, ${blue}`;
+              
+            })
+        }
+    }
+    
+}
+createGrid();
+
+button.addEventListener('click', () => {
+   let size = setGridSize();
+   clearGrid();
+   button.textContent = `${size} x ${size}`
+   createGrid(size);
+})
+
+reset.addEventListener('click', () => {
+    clearGrid();
+    createGrid();
+})
+
+
